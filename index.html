@@ -3,120 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <title>Adolph Family History</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- :contentReference[oaicite:8]{index=8} -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Normalize CSS (v8.0.1) + Reset -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"><!-- :contentReference[oaicite:9]{index=9} -->
+  <!-- Normalize + Reset -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
   <style>
-    /* Basic Reset */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }/* :contentReference[oaicite:10]{index=10} */
-    html { font-size:16px; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg-light); color: var(--text-dark);
+    /* --- Reset & Variables --- */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary: #274e71;
+      --secondary: #2a5d84;
+      --bg: #f8f8f8;
+      --text: #333;
+    }
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background: var(--bg); color: var(--text);
       scroll-behavior: smooth;
+      padding-top: 70px; /* for fixed nav */
     }
 
-    /* CSS Variables */
-    :root {
-      --primary-color: #274e71;
-      --secondary-color: #2a5d84;
-      --accent-color: #E67E22;
-      --bg-light: #f8f8f8;
-      --text-dark: #333;
-    } /* :contentReference[oaicite:11]{index=11} */
+    /* --- Navigation --- */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    nav ul {
+      display: flex; justify-content: center; list-style: none;
+      padding: 1rem;
+    }
+    nav a {
+      margin: 0 1rem; text-decoration: none;
+      color: var(--primary); font-weight: bold;
+    }
+    nav a:hover { color: var(--secondary); }
 
-    /* Typography */
-    h1, h2, h3, h4 { color: var(--primary-color); }
-    body, p, li { line-height: 1.6; }
-
-    /* Navigation */
-    nav { position: fixed; top:0; width:100%; background:#fff;
-          box-shadow:0 2px 5px rgba(0,0,0,0.1);
-          z-index:1000; }
-    nav ul { display:flex; justify-content:center; list-style:none; padding:1rem; margin:0; }
-    nav a { color: var(--primary-color); text-decoration:none; font-weight:bold; }
-    nav a:hover { color: var(--secondary-color); }
-
-    /* Hero */
+    /* --- Hero --- */
     header.hero {
-      height:60vh; min-height:300px;
-      background:url('https://picsum.photos/seed/OkanoganValley/1600/900') center/cover fixed;
-      display:flex; align-items:center; justify-content:center; position:relative;
-      color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.8);
+      height: 60vh; min-height: 300px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/d/db/Omak%2C_WA_-_view_from_Pioneer_Park.jpg') center/cover fixed;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+      color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
     }
     header.hero::before {
-      content:''; position:absolute; inset:0; background:rgba(0,0,0,0.4);
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.4);
     }
-    header.hero h1 { position:relative; font-size:2.5rem; }
+    header.hero h1 {
+      position: relative; background: rgba(0,0,0,0.6);
+      padding: 0.6em 1.2em; border-radius: 8px;
+      font-size: 2.5rem;
+    } /* :contentReference[oaicite:0]{index=0} */
 
-    /* Main Content */
-    main { max-width:1000px; margin:6rem auto 2rem; padding:1.5rem; background:#fff;
-           box-shadow:0 2px 15px rgba(0,0,0,0.1); border-radius:8px; }
+    /* --- Main content --- */
+    main {
+      max-width: 1000px; margin: 2rem auto;
+      background: #fff; padding: 2rem;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h2 { color: var(--primary); border-bottom: 2px solid #ddd; padding-bottom: 0.5em; margin-top: 1.5em; }
+    h3 { color: var(--secondary); margin-top: 1em; }
+    p, li { margin: 0.6em 0; line-height: 1.6; }
+    ul { padding-left: 1.2em; }
 
-    /* Section Images */
+    /* --- Section images --- */
     .section-img {
-      width:100%; max-width:700px; margin:1.5rem auto;
-      display:block; border-radius:6px;
-      object-fit:cover; transition: transform .3s, box-shadow .3s;
+      display: block; margin: 1.5em auto; max-width: 700px;
+      width: 100%; border-radius: 6px; object-fit: cover;
+      transition: transform .3s, box-shadow .3s;
     }
     .section-img:hover {
-      transform:scale(1.03) translateY(-5px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.25);
-    }
+      transform: scale(1.03) translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    } /* :contentReference[oaicite:1]{index=1} */
 
-    /* Gallery */
-    .gallery {
-      display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:2rem;
-      justify-content:space-around; 
-    }
-    .gallery img {
-      width:31%; display:block; border-radius:6px;
-      object-fit:cover; transition: transform .3s, box-shadow .3s;
-    }
-    .gallery img:hover {
-      transform:scale(1.03) translateY(-5px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.25);
-    } /* :contentReference[oaicite:12]{index=12} :contentReference[oaicite:13]{index=13} */
-
-    /* Timeline */
-    #timeline-section {
-      position:relative; padding-left:2.5em; border-left:4px solid #acc2d7;
-      margin:3rem 0;
-    }
+    /* --- Timeline --- */
+    #timeline { position: relative; margin: 2em 0; padding-left: 2.5em; border-left: 4px solid #acc2d7; }
     .timeline-event {
-      position:relative; margin-bottom:2em; padding-left:1em;
+      position: relative; margin-bottom: 1.8em; padding-left: 1em;
     }
     .timeline-event::before {
-      content:''; position:absolute; left:-1.8em; top:5px;
-      width:1.2em; height:1.2em; background:var(--secondary-color);
-      border-radius:50%; border:3px solid #fff;
+      content: ''; position: absolute; left: -1.8em; top: 5px;
+      width: 1.2em; height: 1.2em; background: var(--secondary);
+      border: 3px solid #fff; border-radius: 50%;
     }
 
-    /* Transitions */
-    .timeline-event, .gallery img, .section-img {
-      transition: all .3s ease; /* :contentReference[oaicite:14]{index=14} */
+    /* --- Gallery --- */
+    .gallery {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5em;
+      justify-content: space-around;
+    }
+    .gallery img {
+      width: 31%; border-radius: 6px; object-fit: cover;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.03) translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     }
 
-    /* Responsive */
-    @media(max-width:768px){
-      .gallery img { width:48%; }
-      header.hero h1 { font-size:2rem; }
+    /* --- Footer --- */
+    footer {
+      text-align: center; margin: 2rem 0; font-size: 0.9em; color: #666;
     }
-    @media(max-width:600px){
-      nav ul { flex-direction:column; }
-      .gallery img { width:100%; }
+
+    /* --- Responsiveness --- */
+    @media (max-width: 768px) {
+      .gallery img { width: 48%; }
+      header.hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 600px) {
+      nav ul { flex-direction: column; }
+      .gallery img { width: 100%; }
+      main { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <nav role="navigation" aria-label="Main menu"><!-- :contentReference[oaicite:15]{index=15} -->
+  <nav aria-label="Main navigation">
     <ul>
       <li><a href="#joseph-agnes">Joseph & Agnes</a></li>
       <li><a href="#descendants">Descendants</a></li>
-      <li><a href="#timeline-section">Timeline</a></li>
-      <li><a href="#gallery-section">Gallery</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#gallery">Gallery</a></li>
     </ul>
   </nav>
 
@@ -125,44 +140,98 @@
   </header>
 
   <main>
+    <!-- Joseph & Agnes -->
     <section id="joseph-agnes">
-      <h2>Joseph Patrick Adolph &amp; Agnes Gunn</h2>
-      <img src="https://picsum.photos/seed/NespelemWA/800/500"
-           alt="Rolling hills near Nespelem, WA"
-           class="section-img"><!-- :contentReference[oaicite:16]{index=16} -->
-      <p>Joseph Patrick Adolph (1882–1958) and Agnes Gunn (1893–1971) were foundational members of the Colville Confederated Tribes, living and leading on the reservation lands near Nespelem, Washington.</p>
+      <h2>Joseph Patrick Adolph &amp; Agnes Gunn</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Omak%2C_Washington_municipal_view.jpg"
+           alt="Aerial view of Omak, Washington"
+           class="section-img">
+      <p><strong>Joseph P. Adolph</strong> (1882–1958) and <strong>Agnes Gunn</strong> (1893–1971) married and led their family on the Colville Reservation near Nespelem, WA. Both were active Tribal Council members and community pillars.</p>
     </section>
 
+    <!-- Descendants -->
     <section id="descendants">
       <h2>Descendants</h2>
-      <!-- Grandchildren list here… -->
+      <h3>Children of Joseph &amp; Agnes</h3>
+      <ul>
+        <li><strong>Eva Adolph</strong> (1911–2006): Sinixt elder, repatriation advocate.</li>
+        <li><strong>William “Shortie” Adolph</strong> (1914–1963): WWII PFC.</li>
+        <li><strong>Anna “Annie” Adolph</strong> (1916–1916): Infant.</li>
+        <li><strong>Marie Mary Adolph</strong> (1918–1978): Married Goujon/St. Paul.</li>
+        <li><strong>Ambrose Adolph</strong> (1921–2012): D‑Day veteran.</li>
+        <li><strong>Vincent “Beanie” Adolph Sr.</strong> (1923–1964): Tribal leader.</li>
+        <li><strong>Rose Adolph Squetimkin</strong> (1926–1983): Community figure.</li>
+      </ul>
+
+      <h3>Grandchildren (Children of Vincent Sr.)</h3>
+      <ul>
+        <li><strong>Arlene B. Adolph</strong> (1953–1997): Educator and tribal advocate.</li>
+        <li><strong>Donlyn M. Adolph</strong> (1954–2005): Housing Authority director.</li>
+        <li><strong>Inez Reya Adolph</strong> (b. c.1956): Brewster community leader.</li>
+        <li><strong>Sunny C. Adolph</strong> (d. 2023): Omak resident.</li>
+        <li><strong>Phyllis Adolph</strong> (1962–2022): Nurse and mentor.</li>
+        <li><strong>Kathleen “Kate” Sanchez</strong> (b. c.1960): Tribal council candidate.</li>
+      </ul>
     </section>
 
-    <section id="timeline-section">
+    <!-- Timeline -->
+    <section id="timeline">
       <h2>Family Timeline</h2>
       <div id="timeline">
         <div class="timeline-event">
-          <h3>1882</h3><p>Joseph Patrick Adolph is born.</p>
+          <h3>1882</h3>
+          <p>Joseph Patrick Adolph is born.</p>
         </div>
-        <!-- More events… -->
+        <div class="timeline-event">
+          <h3>1893</h3>
+          <p>Agnes Gunn is born.</p>
+        </div>
+        <div class="timeline-event">
+          <h3>1944</h3>
+          <p>Ambrose Adolph lands at Normandy (D‑Day).</p>
+        </div>
+        <div class="timeline-event">
+          <h3>1964</h3>
+          <p>Vincent “Beanie” Adolph Sr. passes away.</p>
+        </div>
+        <div class="timeline-event">
+          <h3>1989</h3>
+          <p>Eva Adolph Orr leads Sinixt repatriation effort.</p>
+        </div>
+        <div class="timeline-event">
+          <h3>2005</h3>
+          <p>Birth of Agnice Sophia Campbell.</p>
+        </div>
+        <div class="timeline-event">
+          <h3>2012</h3>
+          <p>Ambrose Adolph passes away.</p>
+        </div>
+        <div class="timeline-event">
+          <h3>2023</h3>
+          <p>Sunny C. Adolph passes away.</p>
+        </div>
       </div>
     </section>
 
-    <section id="gallery-section">
-      <h2>Historical Photos</h2>
+    <!-- Gallery -->
+    <section id="gallery">
+      <h2>Gallery of Omak, WA</h2>
       <div class="gallery">
-        <img src="https://picsum.photos/400/300?seed=family1"
-             alt="Family gathering"
-             title="Family gathering by the river">
-        <img src="https://picsum.photos/400/300?seed=ceremony"
-             alt="Cultural ceremony"
-             title="Traditional cultural ceremony">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Omak%2C_WA_-_view_from_Pioneer_Park.jpg"
+             alt="View from Pioneer Park, Omak, WA"
+             title="Pioneer Park view over Okanogan River">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Omak%2C_Washington_municipal_view.jpg"
+             alt="Aerial view of Omak, Washington"
+             title="Municipal aerial view of Omak">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Omak_lake_balancing_rock.jpg"
+             alt="Balancing rock near Omak Lake"
+             title="Glacial erratic balancing rock near Omak Lake">
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Adolph Family Archive. All rights reserved.</p>
+    <p>&copy; 2025 Adolph Family Archive. All rights reserved.</p>
   </footer>
 </body>
 </html>
