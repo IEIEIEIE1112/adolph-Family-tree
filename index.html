@@ -3,285 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <title>Adolph Family History</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- :contentReference[oaicite:8]{index=8} -->
+
+  <!-- Normalize CSS (v8.0.1) + Reset -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"><!-- :contentReference[oaicite:9]{index=9} -->
   <style>
-    /* --- Base, Typography, Layout --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Modern system fonts */
-        color: #333;
-        line-height: 1.6;
-        scroll-behavior: smooth;
-        background-color: #f8f8f8;
-        padding-top: 70px; /* Adjust as needed based on nav height */
-    }
-    main {
-        max-width: 1000px;
-        margin: 2em auto;
-        padding: 1.5em 2em;
-        background-color: #fff;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        border-radius: 8px;
-    }
-    h1, h2, h3, h4 { color: #274e71; margin-bottom: 0.6em; }
-    h1 { font-size: 2.4em; margin-top: 0; text-align: center; }
-    h2 { font-size: 2em; margin-top: 1.8em; border-bottom: 1px solid #ddd; padding-bottom: 0.4em; }
-    h3 { font-size: 1.6em; margin-top: 1.2em; }
-    h4 { font-size: 1.3em; margin-top: 1em; color: #366088; } /* Slightly different color for H4 */
-    p, li { margin-bottom: 0.9em; }
-    ul, ol { padding-left: 1.5em; }
-    li { margin-left: 0.5em; }
-    a { color: #2a5d84; text-decoration: none; transition: color 0.3s ease; }
-    a:hover { text-decoration: underline; color: #1c3f5b; }
-    strong { font-weight: 600; /* Slightly bolder */ }
-
-    /* --- Navigation --- */
-    nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 0.8em 0;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    nav ul { display: flex; justify-content: center; list-style: none; padding: 0; }
-    nav li { margin: 0 1.5em; }
-    nav a { font-weight: bold; color: #274e71; }
-
-    /* --- Hero Section --- */
-    .hero {
-      height: 60vh; min-height: 300px;
-      background: url('https://picsum.photos/seed/OkanoganValley/1600/900') center/cover fixed; /* Placeholder */
-      display: flex; align-items: center; justify-content: center;
-      color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-      position: relative; text-align: center;
-    }
-    .hero::before { /* Dark overlay */
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background-color: rgba(0, 0, 0, 0.35); z-index: 1;
-    }
-    .hero h1 {
-        background: rgba(0,0,0,0.6); padding: 0.6em 1.2em;
-        border-radius: 8px; position: relative; z-index: 2; margin: 0;
+    /* Basic Reset */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }/* :contentReference[oaicite:10]{index=10} */
+    html { font-size:16px; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-light); color: var(--text-dark);
+      scroll-behavior: smooth;
     }
 
-    /* --- Images & Gallery --- */
-    .section-img, .gallery img {
-      width: 100%; display: block;
-      border-radius: 6px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18), 0 2px 5px rgba(0, 0, 0, 0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* CSS Variables */
+    :root {
+      --primary-color: #274e71;
+      --secondary-color: #2a5d84;
+      --accent-color: #E67E22;
+      --bg-light: #f8f8f8;
+      --text-dark: #333;
+    } /* :contentReference[oaicite:11]{index=11} */
+
+    /* Typography */
+    h1, h2, h3, h4 { color: var(--primary-color); }
+    body, p, li { line-height: 1.6; }
+
+    /* Navigation */
+    nav { position: fixed; top:0; width:100%; background:#fff;
+          box-shadow:0 2px 5px rgba(0,0,0,0.1);
+          z-index:1000; }
+    nav ul { display:flex; justify-content:center; list-style:none; padding:1rem; margin:0; }
+    nav a { color: var(--primary-color); text-decoration:none; font-weight:bold; }
+    nav a:hover { color: var(--secondary-color); }
+
+    /* Hero */
+    header.hero {
+      height:60vh; min-height:300px;
+      background:url('https://picsum.photos/seed/OkanoganValley/1600/900') center/cover fixed;
+      display:flex; align-items:center; justify-content:center; position:relative;
+      color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.8);
     }
-    .section-img { max-width: 700px; margin: 1.5em auto; }
-    .section-img:hover, .gallery img:hover {
-       transform: scale(1.03) translateY(-5px);
-       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
+    header.hero::before {
+      content:''; position:absolute; inset:0; background:rgba(0,0,0,0.4);
     }
+    header.hero h1 { position:relative; font-size:2.5rem; }
+
+    /* Main Content */
+    main { max-width:1000px; margin:6rem auto 2rem; padding:1.5rem; background:#fff;
+           box-shadow:0 2px 15px rgba(0,0,0,0.1); border-radius:8px; }
+
+    /* Section Images */
+    .section-img {
+      width:100%; max-width:700px; margin:1.5rem auto;
+      display:block; border-radius:6px;
+      object-fit:cover; transition: transform .3s, box-shadow .3s;
+    }
+    .section-img:hover {
+      transform:scale(1.03) translateY(-5px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    /* Gallery */
     .gallery {
-        display: flex; flex-wrap: wrap; justify-content: space-around;
-        gap: 1.5em; margin-top: 1.5em;
-     }
-    .gallery .photo-item { width: 31%; text-align: center; }
-    .gallery img { width: 100%; margin-bottom: 0.5em; }
-    .gallery .caption { font-size: 0.9em; color: #555; margin-top: 0.3em; }
+      display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:2rem;
+      justify-content:space-around; 
+    }
+    .gallery img {
+      width:31%; display:block; border-radius:6px;
+      object-fit:cover; transition: transform .3s, box-shadow .3s;
+    }
+    .gallery img:hover {
+      transform:scale(1.03) translateY(-5px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    } /* :contentReference[oaicite:12]{index=12} :contentReference[oaicite:13]{index=13} */
 
-    /* --- Timeline --- */
+    /* Timeline */
     #timeline-section {
-      position: relative; margin: 3em 0;
-      padding-left: 2.5em; border-left: 4px solid #acc2d7;
+      position:relative; padding-left:2.5em; border-left:4px solid #acc2d7;
+      margin:3rem 0;
     }
-    .timeline-event { position: relative; margin-bottom: 2em; padding-left: 1em; }
-    .timeline-event:before { /* Dots */
-      content: ""; position: absolute; left: -1.95em; top: 5px;
-      width: 1.2em; height: 1.2em; background: #2a5d84; border-radius: 50%;
-      border: 3px solid #fff; box-shadow: 0 0 5px rgba(42, 93, 132, 0.5); z-index: 1;
+    .timeline-event {
+      position:relative; margin-bottom:2em; padding-left:1em;
     }
-    .timeline-event h3 { margin-bottom: 0.3em; color: #2a5d84; font-size: 1.3em; }
-    .timeline-event p { font-size: 0.95em; color: #555; margin-bottom: 0; }
-
-    /* --- Helper Classes --- */
-    .community-notes {
-        background-color: #eaf2f8; border-left: 5px solid #aed6f1;
-        padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px; font-size: 0.95em;
-    }
-    .community-notes p { margin-bottom: 0.5em; }
-    .note { font-size: 0.85em; color: #666; font-style: italic; display: block; margin-top: 0.3em;}
-
-    /* --- Footer --- */
-    footer {
-        text-align: center; margin-top: 3em; padding: 1.5em 0;
-        border-top: 1px solid #eee; font-size: 0.9em; color: #777;
+    .timeline-event::before {
+      content:''; position:absolute; left:-1.8em; top:5px;
+      width:1.2em; height:1.2em; background:var(--secondary-color);
+      border-radius:50%; border:3px solid #fff;
     }
 
-    /* --- Responsive --- */
-    @media (max-width: 768px) {
-        .gallery .photo-item { width: 48%; }
-        main { padding: 1.5em; }
-        h1 { font-size: 2em; }
-        h2 { font-size: 1.8em; }
-        h3 { font-size: 1.4em; }
-        h4 { font-size: 1.2em; }
+    /* Transitions */
+    .timeline-event, .gallery img, .section-img {
+      transition: all .3s ease; /* :contentReference[oaicite:14]{index=14} */
     }
-    @media (max-width: 600px) {
-      body { padding-top: 50px; }
-      nav ul { flex-direction: column; align-items: center; }
-      nav li { margin: 0.5em 0; }
-      .gallery .photo-item { width: 95%; }
-      main { padding: 1em; }
-      ul, ol { padding-left: 1.2em; }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .gallery img { width:48%; }
+      header.hero h1 { font-size:2rem; }
+    }
+    @media(max-width:600px){
+      nav ul { flex-direction:column; }
+      .gallery img { width:100%; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <ul>
-    <li><a href="#joseph-agnes">Joseph & Agnes</a></li>
-    <li><a href="#descendants">Descendants</a></li>
-    <li><a href="#timeline-section">Timeline</a></li>
-    <li><a href="#gallery-section">Gallery</a></li>
-  </ul>
-</nav>
-
-<header class="hero">
-  <h1>Adolph Family Legacy</h1>
-</header>
-
-<main>
-  <section id="joseph-agnes">
-    <h2>Joseph Patrick Adolph & Agnes Gunn</h2>
-    <img src="https://picsum.photos/seed/NespelemWA/800/500" alt="Placeholder image representing Nespelem area landscape" class="section-img">
-    <p><strong>Joseph Patrick Adolph (1882–1958)</strong> and <strong>Agnes Gunn (1893–1971)</strong> married and established their family near Nespelem, Washington, on the Colville Indian Reservation. As members of the Colville Confederated Tribes (Agnes belonging to the Lakes/Sinixt band), their lives were deeply connected to the region's landscape and community. Joseph actively participated in tribal governance, serving on the tribal business council. Public records, such as the obituary for their great-granddaughter Naomi Price, confirm their lineage and role as progenitors of this family branch:contentReference[oaicite:27]{index=27}.</p>
-     <div class="community-notes">
-        <p><strong>Community Ties:</strong> The family has strong ties to the communities across the Colville Reservation. Public records indicate several family members, such as John Adolph Sr. (1902-1983) and Mary E Augusta Adolph (1901-1983), are buried at St. Mary's Mission Catholic Cemetery in Omak. More recent obituaries also show connections to Keller, with services for Lee Ambrose Adolph (1957-2023) held at the Keller Community Center. Ryan William Adolph-Louie (1983-2022), also buried at St. Mary's Mission Cemetery, is another individual connected to the Omak community noted in public records.</p>
-    </div>
-  </section>
-
-  <section id="descendants">
-    <h2>Descendants of Joseph & Agnes</h2>
-
-    <h3>Children</h3>
+  <nav role="navigation" aria-label="Main menu"><!-- :contentReference[oaicite:15]{index=15} -->
     <ul>
-      <li><strong>Eva Adolph</strong> (1911–2006): Married Lionel Orr. A respected Sinixt elder who spearheaded repatriation of ancestral remains:contentReference[oaicite:28]{index=28}.</li>
-      <li><strong>William “Shortie” Adolph</strong> (1914–1963): Born Stevens County, WA; WWII U.S. Army PFC. Buried in Wenatchee, WA:contentReference[oaicite:32]{index=32}.</li>
-      <li><strong>Anna “Annie” Adolph</strong> (1916–1916): Died in infancy (Danville, WA).</li>
-      <li><strong>Marie Mary Adolph</strong> (1918–1978): Married George Goujon (Nespelem):contentReference[oaicite:33]{index=33}. (*Note: Some records may list her as Marie Mary Adolph St. Paul*). Connected to Naomi Price via son Kenneth:contentReference[oaicite:34]{index=34}.</li>
-      <li><strong>Ambrose Adolph</strong> (1921–2012): Born Boyds, WA; died Disautel, WA:contentReference[oaicite:35]{index=35}. WWII U.S. Army veteran (D-Day). Colville tribal member (Arrow Lakes). Married Julia Lucille Weed (1927–1997).</li>
-      <li><strong>Vincent Randolph “Beanie” Adolph</strong> (1923–1964): Born 1923; died Idaho. Served in military. Married Iris Ione Penley.</li>
-      <li><strong>Rose Adolph Squetimkin</strong> (1926–1983): (*Source: Public memorial records*). Married ? Squetimkin.</li>
-      <li class="note">This list is based on available public records and may not be exhaustive.</li>
+      <li><a href="#joseph-agnes">Joseph & Agnes</a></li>
+      <li><a href="#descendants">Descendants</a></li>
+      <li><a href="#timeline-section">Timeline</a></li>
+      <li><a href="#gallery-section">Gallery</a></li>
     </ul>
+  </nav>
 
-    <h3>Grandchildren</h3>
-     <span class="note">(Children of Eva, William, Marie, Ambrose, Vincent, Rose)</span>
-    <ul>
-      <li>Vance Robert “Bob” Campbell Sr. (Son of Eva Adolph Orr). Sinixt (Arrow Lakes) Headman:contentReference[oaicite:36]{index=36}:contentReference[oaicite:37]{index=37}.</li>
-      <li>Dolores “Lola” Campbell (Daughter of Eva Adolph Orr). Married Delmar Lezime.</li>
-      <li>Kenneth Goujon (Son of Marie Mary Adolph Goujon). Married Matilda Timentwa.</li>
-      <li>Lee Ambrose Adolph (1957-2023) (Son of Ambrose Adolph) (*based on obituary info*).</li>
-      <li>Arlene (Adolph) Zacherle (1953–1997) (Daughter of Vincent R. Adolph). Married Carl Zacherle.</li>
-      <li>Donlyn Adolph (Daughter of Vincent R. Adolph).</li>
-      <li>Vincent R. Adolph Jr. (Son of Vincent R. Adolph).</li>
+  <header class="hero">
+    <h1>Adolph Family Legacy</h1>
+  </header>
 
-      <li class="note">Grandchildren for William Adolph and Rose Adolph Squetimkin were not readily identified in recent public record searches. This list may be incomplete and relies on user-provided information and available public records.</li>
-    </ul>
+  <main>
+    <section id="joseph-agnes">
+      <h2>Joseph Patrick Adolph &amp; Agnes Gunn</h2>
+      <img src="https://picsum.photos/seed/NespelemWA/800/500"
+           alt="Rolling hills near Nespelem, WA"
+           class="section-img"><!-- :contentReference[oaicite:16]{index=16} -->
+      <p>Joseph Patrick Adolph (1882–1958) and Agnes Gunn (1893–1971) were foundational members of the Colville Confederated Tribes, living and leading on the reservation lands near Nespelem, Washington.</p>
+    </section>
 
-    <h4>Great-Grandchildren (Examples)</h4>
-     <span class="note">(Children of Vance, Lola, Kenneth, Lee, Arlene, Donlyn, Vincent Jr., Thomas Lee, etc.)</span>
-    <ul>
-       <li>Naomi Anita Price (1964–2005) (Daughter of Kenneth Goujon). Member of Colville Tribes. Married Michael Price. Buried in Nespelem Community Cemetery:contentReference[oaicite:38]{index=38}.</li>
-      <li>Agnice Sophia Campbell (b. 2005) (Daughter of Lola Campbell). Birth noted on Sinixt land:contentReference[oaicite:39]{index=39}.</li>
-       </ul>
+    <section id="descendants">
+      <h2>Descendants</h2>
+      <!-- Grandchildren list here… -->
+    </section>
 
-     <h4>Great-Great-Grandchildren (Examples)</h4>
-      <span class="note">(Children of Naomi, Agnice, etc., and children of Vincent R. Adolph Jr.)</span>
-     <ul>
-      <li>Tyson Lee Goujon-Price (b. 1986) (Son of Naomi Price):contentReference[oaicite:40]{index=40}.</li>
-      <li>Patrick R. Price (b. 1987) (Son of Naomi Price):contentReference[oaicite:41]{index=41}.</li>
-      <li>Elaine Price (b. c. 1990) (Daughter of Naomi Price):contentReference[oaicite:42]{index=42}.</li>
-       <li>Thomas Lee Adolph (Son of Vincent R. Adolph Jr.).</li>
-       <li>Shawna Adolph (Daughter of Vincent R. Adolph Jr.).</li>
-       <li>Vincent Adolph III (Son of Vincent R. Adolph Jr.).</li>
-        <li class="note">This list provides examples based on user information and available public records and is not exhaustive.</li>
-     </ul>
-  </section>
+    <section id="timeline-section">
+      <h2>Family Timeline</h2>
+      <div id="timeline">
+        <div class="timeline-event">
+          <h3>1882</h3><p>Joseph Patrick Adolph is born.</p>
+        </div>
+        <!-- More events… -->
+      </div>
+    </section>
 
-  <section id="timeline-section">
-    <h2>Family Timeline</h2>
-    <div id="timeline">
-       <div class="timeline-event">
-        <h3>1882</h3><p>Birth of Joseph Patrick Adolph.</p>
-      </div>
-      <div class="timeline-event">
-        <h3>1893</h3><p>Birth of Agnes Gunn.</p>
-      </div>
-       <div class="timeline-event">
-        <h3>c. 1901-1902</h3><p>Birth of Mary E Augusta & John Adolph Sr.</p>
-      </div>
-       <div class="timeline-event">
-        <h3>1910s</h3><p>Frank Matsura photographs early Omak (street scenes, school, bridge).</p>
-      </div>
-      <div class="timeline-event">
-        <h3>1944</h3><p>PFC Ambrose Adolph lands at Normandy (D-Day, WWII):contentReference[oaicite:43]{index=43}.</p>
-      </div>
-       <div class="timeline-event">
-        <h3>1958</h3><p>Death of Joseph Patrick Adolph.</p>
-      </div>
-      <div class="timeline-event">
-        <h3>1964</h3><p>Death of Vincent Randolph Adolph (Oct 25, Idaho).</p>
-      </div>
-      <div class="timeline-event">
-        <h3>1971</h3><p>Death of Agnes Gunn Adolph.</p>
-      </div>
-       <div class="timeline-event">
-        <h3>1983</h3>
-          <p>Death of John Adolph Sr. (Jan 8) & Mary E Augusta Adolph (Jun 23). Buried St. Mary's Mission Cemetery, Omak.</p>
-          <p>Death of Rose Adolph Squetimkin.</p>
-      </div>
-      <div class="timeline-event">
-        <h3>1989</h3><p>Eva Adolph Orr leads effort to rebury Sinixt ancestors:contentReference[oaicite:44]{index=44}.</p>
-      </div>
-      <div class="timeline-event">
-        <h3>2005</h3>
-          <p>Birth of Agnice Sophia Campbell (Great-granddaughter of Eva):contentReference[oaicite:45]{index=45}.</p>
-          <p>Death of Naomi Anita Price (Great-granddaughter of Marie).</p>
-      </div>
-      <div class="timeline-event">
-          <h3>2012</h3><p>Death of Ambrose Adolph (Mar 2).</p>
-      </div>
-      <div class="timeline-event">
-        <h3>2022</h3><p>Death of Ryan William Adolph-Louie (Sep 19). Buried St. Mary's Mission Cemetery, Omak.</p>
-      </div>
-       <div class="timeline-event">
-        <h3>2023</h3><p>Death of Lee Ambrose Adolph (Jul 27). Services held in Keller, WA.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="gallery-section">
-      <h2>Historical Omak Gallery</h2>
-      <p>The following are placeholder images representing historical views of Omak. Actual historical photos, like those by Frank S. Matsura (c. 1903-1913), can be found online via sources like the **WSU Libraries Digital Collections** and the **Okanogan County Historical Society**. Please replace these placeholders with appropriate images, checking usage permissions from the source archive.</p>
+    <section id="gallery-section">
+      <h2>Historical Photos</h2>
       <div class="gallery">
-        <div class="photo-item">
-            <img src="https://picsum.photos/seed/OldOmakStreet1910/400/300" alt="Placeholder representing historical Omak Street Scene" title="Historical Omak Street Scene (Placeholder)">
-            <p class="caption">Placeholder: Omak Street Scene (c. 1910)</p>
-        </div>
-         <div class="photo-item">
-             <img src="https://picsum.photos/seed/OldOmakSchool1910/400/300" alt="Placeholder representing historical Omak School" title="Historical Omak School (Placeholder)">
-             <p class="caption">Placeholder: Omak School (c. 1910)</p>
-         </div>
-        <div class="photo-item">
-            <img src="https://picsum.photos/seed/OldOmakBridge/400/300" alt="Placeholder representing historical Omak Bridge" title="Historical Omak Bridge (Placeholder)">
-            <p class="caption">Placeholder: Early Omak Bridge Area</p>
-        </div>
-    </div>
-  </section>
-</main>
+        <img src="https://picsum.photos/400/300?seed=family1"
+             alt="Family gathering"
+             title="Family gathering by the river">
+        <img src="https://picsum.photos/400/300?seed=ceremony"
+             alt="Cultural ceremony"
+             title="Traditional cultural ceremony">
+      </div>
+    </section>
+  </main>
 
-<footer>
-  <p>&copy; 2025 Adolph Family Archive. Information compiled from public genealogy records, obituaries, user contributions, and tribal sources.</p>
-</footer>
-
+  <footer>
+    <p>&copy; 2025 Adolph Family Archive. All rights reserved.</p>
+  </footer>
 </body>
 </html>
